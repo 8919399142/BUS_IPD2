@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - Bus Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+
+        .container {
+            margin: 2rem;
+        }
+
+
+        .bus-buttons button {
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+
+        .bus-buttons button:hover {
+            background-color: #0056b3;
+        }
+
+
+        .dropdown {
+            display: none;
+            margin-top: 1rem;
+        }
+
+
+        .dropdown select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+
+        .details {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+
+        .details .info {
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .details .metrics {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1rem;
+        }
+
+
+        .details .info p,
+        .details .metrics p {
+            font-size: 1.2rem;
+            margin: 0.2rem 0;
+        }
+
+
+        .graphs {
+            margin-top: 2rem;
+        }
+
+
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+
+
+        .alert {
+            padding: 0.5rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+
+        .alert.high-temp {
+            background-color: #ff4d4d;
+        }
+
+
+        .alert.high-acoustic {
+            background-color: #ffcc00;
+        }
+
+
+        .alert.pipe-leak {
+            background-color: #ff6600;
+        }
+
+
+        .alert.high-passenger {
+            background-color: #ff9999;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="home.html">Home</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="routes.html">Routes</a>
+        <a href="settings.html">Settings</a>
+    </nav>
+    <div class="container">
+        <h1>Analytics</h1>
+        <div class="bus-buttons">
+            <button data-bus="1">Bus 1</button>
+            <button data-bus="2">Bus 2</button>
+            <button data-bus="3">Bus 3</button>
+            <!-- Add more buttons as needed -->
+        </div>
+
+
+        <!-- Dropdown for selecting metrics -->
+        <div class="dropdown" id="dropdown">
+            <select id="metric-select">
+                <option value="">Select Metric</option>
+                <option value="temperature">Temperature</option>
+                <option value="pressure">Pressure</option>
+                <option value="passenger">Passenger Count</option>
+            </select>
+        </div>
+
+
+        <!-- Details Section -->
+        <div class="details" id="details" style="display: none;">
+            <div class="info">
+                <p id="driver-name">Driver Name: N/A</p>
+                <p id="bus-number">Bus Number: N/A</p>
+            </div>
+            <div class="metrics">
+                <p id="temp-value">Temperature: N/A</p>
+                <p id="pressure-value">Pressure: N/A</p>
+                <p id="passenger-value">Passenger Count: N/A</p>
+            </div>
+        </div>
+
+
+        <!-- Graphs Section -->
+        <div class="graphs">
+            <iframe id="graph-frame" src="" title="Metric Graph"></iframe>
+        </div>
+
+
+        <!-- Alerts Section -->
+        <div id="alerts"></div>
+    </div>
+    <script>
+        const UBIDOTS_TOKEN = 'BBUS-MHasKOWIYL4b8BgHK5Ilak7dwtQuC0';
+
+
+        // Update this object with the actual Ubidots variable IDs and graph URLs for each bus
+        const BUS_VARIABLES = {
+            1: {
+                temperature: '66b44c67a8c0544d3b0fb52f',
+                pressure: '66b1bc61ab9f8125f8ee7cf1',
+                passenger: '66b1bc60cbbc7e27283a5c8b',
+                metrics: {
+                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
+                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
+                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                }
+            },
+            2: {
+                temperature: '66b1bc61965f6723603b02a7',
+                pressure: '66b1bc61ab9f8125f8ee7cf2',
+                passenger: '66b1bc60cbbc7e27283a5c8c',
+                metrics: {
+                    temperature: 'https://ubidots.com/graphs/temperature?bus=2',
+                    pressure: 'https://ubidots.com/graphs/pressure?bus=2',
+                    passenger: 'https://ubidots.com/graphs/passenger?bus=2'
+                }
+            }
+            // Add more buses as needed
+        };
+
+
+        async function fetchData(variableId) {
+            try {
+                const response = await fetch(`https://industrial.api.ubidots.com/api/v1.6/variables/${variableId}/values/?last=1`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Auth-Token': UBIDOTS_TOKEN,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.results.map(result => result.value);
+                } else {
+                    console.error('Failed to fetch data:', response.statusText);
+                    return [];
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+
+        async function updateDashboard(busId) {
+            try {
+                const busData = BUS_VARIABLES[busId];
+
+
+                if (busData) {
+                    const temperatureValues = await fetchData(busData.temperature);
+                    const pressureValues = await fetchData(busData.pressure);
+                    const passengerValues = await fetchData(busData.passenger);
+
+
+                    document.getElementById('temp-value').innerText = `Temperature: ${temperatureValues[0] || 'N/A'} °C`;
+                    document.getElementById('pressure-value').innerText = `Pressure: ${pressureValues[0] || 'N/A'} bar`;
+                    document.getElementById('passenger-value').innerText = `Passenger Count: ${passengerValues[0] || 'N/A'}`;
+
+
+                    const alerts = [];
+
+
+                    if (temperatureValues[0] > 50) {
+                        alerts.push({ type: 'high-temp', message: `High Temperature Detected: ${temperatureValues[0]} °C` });
+                    }
+
+
+                    if (pressureValues[0] > 6) {
+                        alerts.push({ type: 'pipe-leak', message: `Potential Pipe Leak: High Pressure Detected (${pressureValues[0]} bar)` });
+                    }
+
+
+                    if (passengerValues[0] > 100) { // Example threshold
+                        alerts.push({ type: 'high-passenger', message: `High Passenger Count Detected: ${passengerValues[0]}` });
+                    }
+
+
+                    const alertsDiv = document.getElementById('alerts');
+                    alertsDiv.innerHTML = ''; // Clear previous alerts
+
+
+                    alerts.forEach(alert => {
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = `alert ${alert.type}`;
+                        alertDiv.textContent = alert.message;
+                        alertsDiv.appendChild(alertDiv);
+                    });
+
+
+                    // Show the details section and dropdown
+                    document.getElementById('details').style.display = 'flex';
+                    document.getElementById('dropdown').style.display = 'block';
+
+
+                    // Handle dropdown change
+                    document.getElementById('metric-select').addEventListener('change', function() {
+                        const selectedMetric = this.value;
+                        const graphFrame = document.getElementById('graph-frame');
+                        if (selectedMetric && busData.metrics[selectedMetric]) {
+                            graphFrame.src = busData.metrics[selectedMetric];
+                        } else {
+                            graphFrame.src = '';
+                        }
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.bus-buttons button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const busId = this.getAttribute('data-bus');
+                    updateDashboard(busId);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
