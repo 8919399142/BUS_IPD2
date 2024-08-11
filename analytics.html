@@ -171,6 +171,8 @@
             <div class="info">
                 <p id="driver-name">Driver Name: N/A</p>
                 <p id="bus-number">Bus Number: N/A</p>
+                <p id="first-arrival">Driver Name: N/A</p>
+                <p id="last arrival">Bus Number: N/A</p>
             </div>
             <div class="metrics">
                 <p id="temp-value">Temperature: N/A</p>
@@ -196,6 +198,10 @@
         // Update this object with the actual Ubidots variable IDs and graph URLs for each bus
         const BUS_VARIABLES = {
             1: {
+                drivername: 'rohith',
+                busnumber:'AP23R230',
+                firstarrival:'8:00 am',
+                lastarrival:'10:00 pm',
                 temperature: '66b44c67a8c0544d3b0fb52f',
                 pressure: '66b1bc61ab9f8125f8ee7cf1',
                 passenger: '66b1bc60cbbc7e27283a5c8b',
