@@ -171,8 +171,8 @@
             <div class="info">
                 <p id="driver-name">Driver Name: N/A</p>
                 <p id="bus-number">Bus Number: N/A</p>
-                <p id="first-arrival">Driver Name: N/A</p>
-                <p id="last arrival">Bus Number: N/A</p>
+                <p id="first-arrival">first-arrival: N/A</p>
+                <p id="last arrival">last-arrival: N/A</p>
             </div>
             <div class="metrics">
                 <p id="temp-value">Temperature: N/A</p>
@@ -301,7 +301,6 @@
                     passenger: 'https://ubidots.com/graphs/passenger?bus=1'
                 }
             },
-            // Add more buses as needed
         };
 
 
@@ -342,8 +341,10 @@
                     document.getElementById('temp-value').innerText = `Temperature: ${temperatureValues[0] || 'N/A'} °C`;
                     document.getElementById('pressure-value').innerText = `Pressure: ${pressureValues[0] || 'N/A'} bar`;
                     document.getElementById('passenger-value').innerText = `Passenger Count: ${passengerValues[0] || 'N/A'}`;
-
-
+                    document.getElementById('driver-name').innerText = `Driver Name: ${busData.driverName}`;
+                    document.getElementById('bus-number').innerText =`Bus Number: ${busData.busNumber}`;
+                    document.getElementById('first-arrival').innerText =`first arrival: ${busData.firstarrival}`;
+                    document.getElementById('last-arrival').innerText =`last arrival: ${busData.lastarrival}`;
                     const alerts = [];
 
 
