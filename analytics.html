@@ -141,6 +141,7 @@
     <div class="container">
         <h1>Analytics</h1>
         <div class="bus-buttons">
+            <!-- Buttons for 10 buses -->
             <button data-bus="1">Bus 1</button>
             <button data-bus="2">Bus 2</button>
             <button data-bus="3">Bus 3</button>
@@ -151,7 +152,6 @@
             <button data-bus="8">Bus 8</button>
             <button data-bus="9">Bus 9</button>
             <button data-bus="10">Bus 10</button>
-            <!-- Add more buttons as needed -->
         </div>
 
 
@@ -167,12 +167,12 @@
 
 
         <!-- Details Section -->
-        <div class="details" id="details" style="display: none;">
+        <div class="details" id="details">
             <div class="info">
                 <p id="driver-name">Driver Name: N/A</p>
                 <p id="bus-number">Bus Number: N/A</p>
-                <p id="first-arrival">first-arrival: N/A</p>
-                <p id="last arrival">last-arrival: N/A</p>
+                <p id="first-arrival">First Arrival: N/A</p>
+                <p id="last-arrival">Last Arrival: N/A</p>
             </div>
             <div class="metrics">
                 <p id="temp-value">Temperature: N/A</p>
@@ -195,133 +195,164 @@
         const UBIDOTS_TOKEN = 'BBUS-MHasKOWIYL4b8BgHK5Ilak7dwtQuC0';
 
 
-        // Update this object with the actual Ubidots variable IDs and graph URLs for each bus
+        // Update this object with the actual Ubidots variable IDs, graph URLs, and bus details
         const BUS_VARIABLES = {
             1: {
-                Driver Name: 'rohith',
-                Bus Number:'AP23R230',
-                firstarrival:'8:00 am',
-                lastarrival:'10:00 pm',
+                driverName: 'John Doe',
+                busNumber: '101',
+                firstArrival: '08:00 AM',
+                lastArrival: '06:00 PM',
                 temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+                pressure: '66b44c67d6a64451ed25fea7',
+                passenger: '66b4bd019f0cdc000cf5e2ad',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/8HhVAy8Eg4Dfg-jO-lnC7WuRNnesAZhXqIzGNrxj278?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/yGounbFZW4KptU4_YJuXvjbZbFROzDpyx0qX8KprPN0?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/GcE4sG2FqFgtKnoazq6gtWHFNIn8OJFUj9Y6QR__CSo?embed=true'
                 }
             },
             2: {
-                temperature: '66b1bc61965f6723603b02a7',
-                pressure: '66b1bc61ab9f8125f8ee7cf2',
-                passenger: '66b1bc60cbbc7e27283a5c8c',
+                driverName: 'Jane Smith',
+                busNumber: '102',
+                firstArrival: '08:15 AM',
+                lastArrival: '06:15 PM',
+                temperature: '66b4509ce61f534c00e45106',
+                pressure: '66b4509c64ed3f514c6f4df4',
+                passenger: '66b4bd013f80f0000e0a38a2',
                 metrics: {
-                    temperature: 'https://ubidots.com/graphs/temperature?bus=2',
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=2',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=2'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/E0tocV_Mh53uGllVfaQ06fQneu35Mohi7mbYsyr_EtI?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/RkDMPt6Al7-p_-j2jvw1xmkOEiO5XOq6sG4wnzUKDRg?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/mkpsny_jvy8PC4jM0KRXcfAzzyMF24XPjQSuXWwYvUE?embed=true'
                 }
             },
-             3: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            3: {
+                driverName: 'Alice Johnson',
+                busNumber: '103',
+                firstArrival: '08:30 AM',
+                lastArrival: '06:30 PM',
+                temperature: '66b451f7d6a6444cbd4857a0',
+                pressure: '66b451f763735252d9a6e71a',
+                passenger: '66b4bd02646f20000ca8dc68',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/IlQNZ1yhY0kCn15hYDNU9vdMZsSOIB8d0vobFBk0cj4?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/9Lv3VuxRhGpnkfQ3l3qJzaA5HgKORf-cp_OR1UcQMsM?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/CjaARQyAvB9cmkNxB3YZVIyOm-3sjd5G4YPLmyX18EQ?embed=true'
                 }
             },
-             4: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            4: {
+                driverName: 'Bob Brown',
+                busNumber: '104',
+                firstArrival: '08:45 AM',
+                lastArrival: '06:45 PM',
+                temperature: '66b45297eed0eb4eae581f17',
+                pressure: '66b4529721fbf7533f81a6ee',
+                passenger: '66b4bd02fb59cc000de6b011',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/kv3Kpr2pgKPugjDrce10XoyIUrqeytvmIc0rRXtUJ1k?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/8EPHoxva8_CCW4VO7kheTwb2NOv0M7qbeRQkUJN3p7o?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/2noFcPM35zToV1ETemMDcJJhsngOx3RXR5S4hwtKh_g?embed=true'
                 }
             },
-             5: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            5: {
+                driverName: 'Emily Davis',
+                busNumber: '105',
+                firstArrival: '09:00 AM',
+                lastArrival: '07:00 PM',
+                temperature: '66b453fa08ca2b52514f2fa1',
+                pressure: '66b453fabc374e53f6126bd4',
+                passenger: '66b4bd023f80f0000cd587b1',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/9RbZGkxbEYZkRvy25Ov82mZs3An5cTgEHZaN3Q8RLR4?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/Gm5Y2fFcVpZf9Hl-T27eUvl7YW6Wr2dabVcotkUGnNI?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/E1nV7gG_66msU6H72CXDc0HgAQUA3WvRu-8_ISS6_M8?embed=true'
                 }
             },
-             6: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            6: {
+                driverName: 'Michael Wilson',
+                busNumber: '106',
+                firstArrival: '09:15 AM',
+                lastArrival: '07:15 PM',
+                temperature: '66b455ac818b2953dcd375ea',
+                pressure: '66b455ac80bd9d4f017576cd',
+                passenger: '66b4bd02f2839b000c1e9d0c',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/lLDCX4R-1mhcQu6I6bS0xGzEp9Jbv8xAQPMUwQjZag4?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/CA14NGjVR915VdcUTHEh4nIPmRKJQgSWKFw_K6V-qa8?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/WYiuVTsiInFYqJ44DVdvDOO3jnO28KMlvrjyU-hPk0I?embed=true'
                 }
             },
-             7: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            7: {
+                driverName: 'Sarah Miller',
+                busNumber: '107',
+                firstArrival: '09:30 AM',
+                lastArrival: '07:30 PM',
+                temperature: '66b44d6864ed3f514c6f4def',
+                pressure: '66b44d67eed0eb47869f9a9c',
+                passenger: '66b4bd02ca84c1000cbb2867',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/s42_lqDOmv3jvKo9PmXt7fBOlAl17o0lLOcbdZHfR4I?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/TkKY5MYmHaJG26V7v3B0RNeFfTYrIES04nsvrNeGXPE?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/2LGiZjgpCVaQQiyROT9djvxxi0Q3292Kk1LQ_j0Wp9I?embed=true'
                 }
             },
-             8: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            8: {
+                driverName: 'David Lee',
+                busNumber: '108',
+                firstArrival: '09:45 AM',
+                lastArrival: '07:45 PM',
+                temperature: '66b457ffeed0eb508fea9788',
+                pressure: '66b457ff64ed3f53e77da366',
+                passenger: '66b4bd0269fe5e000c77e22d',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/G4scMFBHUVaJdFK5meJ47BuTMeehjy-nthK2sm-Q_q4?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/Ojsjca1N2oW7-UJI9azSpd9OH1Txf7FrviMCLNyIE3A?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/lAag6-kUo_fwf9yjkp3kU1R5I41tmbNUvOpSSZAJqfs?embed=true'
                 }
             },
-             9: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            9: {
+                driverName: 'Laura Martinez',
+                busNumber: '109',
+                firstArrival: '10:00 AM',
+                lastArrival: '08:00 PM',
+                temperature: '66b4b0ac3f80f0000d6b35a8',
+                pressure: '66b4b0ab3f80f0000e0a3884',
+                passenger: '66b4bd023f80f0000e0a38a3',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/So7twAXzwEPLFJm_LjhvIv8zpLG_8dfymBjYb5-bOrU?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/AcoKqjVivfNAuLaoqhFtIz-lA4xQ5bFUCi-2IvaEJ3w?embed=true'
                 }
             },
-             10: {
-                temperature: '66b44c67a8c0544d3b0fb52f',
-                pressure: '66b1bc61ab9f8125f8ee7cf1',
-                passenger: '66b1bc60cbbc7e27283a5c8b',
+            10: {
+                driverName: 'James Anderson',
+                busNumber: '110',
+                firstArrival: '10:15 AM',
+                lastArrival: '08:15 PM',
+                temperature: '66b485bbeed0eb5807256ca0',
+                pressure: '66b485bb21fbf75d6d017407',
+                passenger: '66b4bd0169fe5e000e681432',
                 metrics: {
-                    temperature: "https://industrial.ubidots.com/app/dashboards/public/widget/bVPpa9E_a4pt1vqlDyariSBcJSv70o4EeovZ9rixt40?embed=true",
-                    pressure: 'https://ubidots.com/graphs/pressure?bus=1',
-                    passenger: 'https://ubidots.com/graphs/passenger?bus=1'
+                    temperature: 'https://industrial.ubidots.com/app/dashboards/public/widget/SAZSEZBOv3aUkH9H48vaLN7o4kIKMWyxFUaxDhJy5oU?embed=true',
+                    pressure: 'https://industrial.ubidots.com/app/dashboards/public/widget/QwHZhBcA65QcBsZK-XCP2_91ZpRrqUHSHLQ1Lj7Vgms?embed=true',
+                    passenger: 'https://industrial.ubidots.com/app/dashboards/public/widget/gkzI-p834LF3E_Ti-9IjC3lZ9wvZYEaFrMTEpkbW3gA?embed=true'
                 }
-            },
+            }
         };
 
 
         async function fetchData(variableId) {
-            try {
-                const response = await fetch(`https://industrial.api.ubidots.com/api/v1.6/variables/${variableId}/values/?last=1`, {
-                    method: 'GET',
-                    headers: {
-                        'X-Auth-Token': UBIDOTS_TOKEN,
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    return data.results.map(result => result.value);
-                } else {
-                    console.error('Failed to fetch data:', response.statusText);
-                    return [];
+            const response = await fetch(`https://industrial.api.ubidots.com/api/v1.6/variables/${variableId}/values?quantity=1`, {
+                method: 'GET',
+                headers: {
+                    'X-Auth-Token': UBIDOTS_TOKEN,
+                    'Content-Type': 'application/json'
                 }
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            });
+            if (response.ok) {
+                const data = await response.json();
+                return data.results.map(result => result.value);
+            } else {
+                console.error('Failed to fetch data:', response.statusText);
                 return [];
             }
         }
@@ -330,66 +361,66 @@
         async function updateDashboard(busId) {
             try {
                 const busData = BUS_VARIABLES[busId];
-
-
                 if (busData) {
+                    // Update driver and bus details
+                    document.getElementById('driver-name').textContent = `Driver Name: ${busData.driverName}`;
+                    document.getElementById('bus-number').textContent = `Bus Number: ${busData.busNumber}`;
+                    document.getElementById('first-arrival').textContent = `First Arrival: ${busData.firstArrival}`;
+                    document.getElementById('last-arrival').textContent = `Last Arrival: ${busData.lastArrival}`;
+
+
+                    // Fetch values for the selected bus
                     const temperatureValues = await fetchData(busData.temperature);
                     const pressureValues = await fetchData(busData.pressure);
                     const passengerValues = await fetchData(busData.passenger);
 
 
-                    document.getElementById('temp-value').innerText = `Temperature: ${temperatureValues[0] || 'N/A'} °C`;
-                    document.getElementById('pressure-value').innerText = `Pressure: ${pressureValues[0] || 'N/A'} bar`;
-                    document.getElementById('passenger-value').innerText = `Passenger Count: ${passengerValues[0] || 'N/A'}`;
-                    document.getElementById('driver-name').innerText = `Driver Name: ${busData.driverName}`;
-                    document.getElementById('bus-number').innerText =`Bus Number: ${busData.busNumber}`;
-                    document.getElementById('first-arrival').innerText =`first arrival: ${busData.firstarrival}`;
-                    document.getElementById('last-arrival').innerText =`last arrival: ${busData.lastarrival}`;
-                    const alerts = [];
-
-
-                    if (temperatureValues[0] > 50) {
-                        alerts.push({ type: 'high-temp', message: `High Temperature Detected: ${temperatureValues[0]} °C` });
-                    }
-
-
-                    if (pressureValues[0] > 6) {
-                        alerts.push({ type: 'pipe-leak', message: `Potential Pipe Leak: High Pressure Detected (${pressureValues[0]} bar)` });
-                    }
-
-
-                    if (passengerValues[0] > 100) { // Example threshold
-                        alerts.push({ type: 'high-passenger', message: `High Passenger Count Detected: ${passengerValues[0]}` });
-                    }
-
-
-                    const alertsDiv = document.getElementById('alerts');
-                    alertsDiv.innerHTML = ''; // Clear previous alerts
-
-
-                    alerts.forEach(alert => {
-                        const alertDiv = document.createElement('div');
-                        alertDiv.className = `alert ${alert.type}`;
-                        alertDiv.textContent = alert.message;
-                        alertsDiv.appendChild(alertDiv);
-                    });
-
-
-                    // Show the details section and dropdown
-                    document.getElementById('details').style.display = 'flex';
-                    document.getElementById('dropdown').style.display = 'block';
+                    // Update final values
+                    document.getElementById('temp-value').textContent = `Temperature: ${temperatureValues[0]} °C`;
+                    document.getElementById('pressure-value').textContent = `Pressure: ${pressureValues[0]} bar`;
+                    document.getElementById('passenger-value').textContent = `Passenger Count: ${passengerValues[0]}`;
 
 
                     // Handle dropdown change
                     document.getElementById('metric-select').addEventListener('change', function() {
-                        const selectedMetric = this.value;
-                        const graphFrame = document.getElementById('graph-frame');
-                        if (selectedMetric && busData.metrics[selectedMetric]) {
-                            graphFrame.src = busData.metrics[selectedMetric];
-                        } else {
-                            graphFrame.src = '';
+                        const metric = this.value;
+                        if (busData.metrics[metric]) {
+                            document.getElementById('graph-frame').src = busData.metrics[metric];
                         }
                     });
+
+
+                    // Clear previous alerts
+                    document.getElementById('alerts').innerHTML = '';
+
+
+                    // Check for alerts
+                    const alerts = [];
+                    if (temperatureValues[0] > 50) {
+                        alerts.push({ type: 'high-temp', message: `High Temperature Detected: ${temperatureValues[0]} °C` });
+                    }
+                    if (pressureValues[0] > 6) {
+                        alerts.push({ type: 'pipe-leak', message: `Potential Pipe Leak: High Pressure Detected (${pressureValues[0]} bar)` });
+                    }
+                    if (passengerValues[0] > 100) {
+                        alerts.push({ type: 'high-passenger', message: `High Passenger Count Detected: ${passengerValues[0]}` });
+                    }
+
+
+                    // Display alerts
+                    alerts.forEach(alert => {
+                        const alertDiv = document.createElement('div');
+                        alertDiv.className = `alert ${alert.type}`;
+                        alertDiv.textContent = alert.message;
+                        document.getElementById('alerts').appendChild(alertDiv);
+                    });
+                   
+                    // Show dropdown
+                    document.getElementById('dropdown').style.display = 'block';
+
+
+                } else {
+                    console.error('Bus data not found');
                 }
             } catch (error) {
                 console.error('Error updating dashboard:', error);
@@ -397,14 +428,14 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.bus-buttons button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const busId = this.getAttribute('data-bus');
-                    updateDashboard(busId);
-                });
+        // Add event listeners to buttons
+        document.querySelectorAll('.bus-buttons button').forEach(button => {
+            button.addEventListener('click', function() {
+                const busId = this.getAttribute('data-bus');
+                updateDashboard(busId);
             });
         });
     </script>
 </body>
 </html>
+
