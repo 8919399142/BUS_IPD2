@@ -44,8 +44,15 @@
         <button data-bus="1">Bus 1</button>
         <button data-bus="2">Bus 2</button>
         <button data-bus="3">Bus 3</button>
-        <!-- Add buttons for Bus 4 to Bus 10 -->
+        <button data-bus="4">Bus 4</button>
+        <button data-bus="5">Bus 5</button>
+        <button data-bus="6">Bus 6</button>
+        <button data-bus="7">Bus 7</button>
+        <button data-bus="8">Bus 8</button>
+        <button data-bus="9">Bus 9</button>
+        <button data-bus="10">Bus 10</button>
     </div>
+
     <script>
         const UBIDOTS_TOKEN = 'BBUS-dbyhFn6DojMgw7k617dSgSdxy8NK7R';
 
@@ -64,7 +71,21 @@
                     passenger: 'https://ubidots.com/graphs/passenger?bus=1'
                 }
             },
-            // Repeat for buses 2 to 10 with actual data
+            2: {
+                driverName: 'Jane Smith',
+                busNumber: '102',
+                firstArrival: '09:00 AM',
+                lastArrival: '07:00 PM',
+                temperature: '66b1bc61965f6723603b02a2',
+                pressure: '66b1bc61ab9f8125f8ee7cf1',
+                passenger: '66b1bc60cbbc7e27283a5c8e',
+                metrics: {
+                    temperature: 'https://ubidots.com/graphs/temperature?bus=2',
+                    pressure: 'https://ubidots.com/graphs/pressure?bus=2',
+                    passenger: 'https://ubidots.com/graphs/passenger?bus=2'
+                }
+            },
+            // Define buses 3 to 10 similarly
         };
 
         async function fetchData(variableId) {
@@ -148,7 +169,7 @@
                         }
                     });
 
-                    // Show dropdown
+                    // Show dropdown and details
                     document.getElementById('metric-select').style.display = 'block';
                     document.getElementById('details').style.display = 'block';
                 } else {
