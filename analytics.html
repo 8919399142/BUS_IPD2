@@ -397,7 +397,7 @@
                     const alerts = [];
                     if (temperatureValues[0] > 88) {
                         alerts.push({ type: 'high-temp', message: `Bus ${busId} Danger: High Temperature Detected (${temperatureValues[0]} °C)` });
-                    } else if (temperatureValues[0] > 84) {
+                    } else if (temperatureValues[0] > 83) {
                         alerts.push({ type: 'caution-temp', message: `Bus ${busId} Caution: Temperature Elevated (${temperatureValues[0]} °C)` });
                     }
                     // Pressure Alerts
@@ -411,7 +411,6 @@
                         alerts.push({ type: 'high-passenger', message: `Bus ${busId} Danger: High Passenger Count (${passengerValues[0]})` });
                     }
 
-
                     // Display alerts
                     alerts.forEach(alert => {
                         const alertDiv = document.createElement('div');
@@ -419,10 +418,9 @@
                         alertDiv.textContent = alert.message;
                         document.getElementById('alerts').appendChild(alertDiv);
                     });
-                   
-                    // Show dropdown
-                    document.getElementById('dropdown').style.display = 'block';
 
+                    // Show dropdown
+                    document.getElementById('metric-select').style.display = 'block';
 
                 } else {
                     console.error('Bus data not found');
@@ -432,6 +430,16 @@
             }
         }
 
+        async function updateAllAlerts() {
+            try {
+                document.getElementById('alerts').innerHTML = '';
+                for (const busId in BUS_VARIABLES) {
+                    await updateDashboard(busId);
+                }
+            } catch (error) {
+                console.error('Error updating alerts:', error);
+            }
+        }
 
         // Add event listeners to buttons
         document.querySelectorAll('.bus-buttons button').forEach(button => {
@@ -440,6 +448,9 @@
                 updateDashboard(busId);
             });
         });
+
+        // Initial alert update
+        updateAllAlerts();
     </script>
 </body>
 </html>
