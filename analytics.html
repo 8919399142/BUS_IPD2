@@ -38,6 +38,12 @@
         <option value="passenger">Passenger Count</option>
     </select>
     <iframe id="graph-frame" style="width: 100%; height: 500px; border: none;"></iframe>
+    <div class="bus-buttons">
+        <button data-bus="1">Bus 1</button>
+        <button data-bus="2">Bus 2</button>
+        <button data-bus="3">Bus 3</button>
+        <!-- Add buttons for Bus 4 to Bus 10 -->
+    </div>
     <script>
         const UBIDOTS_TOKEN = 'BBUS-dbyhFn6DojMgw7k617dSgSdxy8NK7R';
 
@@ -143,7 +149,7 @@
 
                     // Show dropdown
                     document.getElementById('metric-select').style.display = 'block';
-
+                    document.getElementById('details').style.display = 'block';
                 } else {
                     console.error('Bus data not found');
                 }
@@ -154,6 +160,7 @@
 
         // Initialize alerts and dashboard
         updateAlerts();
+
         document.querySelectorAll('.bus-buttons button').forEach(button => {
             button.addEventListener('click', function() {
                 const busId = this.getAttribute('data-bus');
