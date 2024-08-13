@@ -395,26 +395,19 @@
 
                     // Check for alerts
                     const alerts = [];
-                    const temp = temperatureValues[0];
-            if (temp > 88) {
-                alerts.push({ type: 'high-temp', message: `Bus ${busId} Danger: High Temperature Detected (${temp} °C)` });
-            } else if (temp > 85 && temp <= 88) {
-                alerts.push({ type: 'caution-temp', message: `Bus ${busId} Caution: Elevated Temperature (${temp} °C)` });
-            }
-
-            // Pressure Alerts
-            const pressure = pressureValues[0];
-            if (pressure < 5) {
-                alerts.push({ type: 'danger-pressure', message: `Bus ${busId} Danger: Low Pressure Detected (${pressure} bar)` });
-            } else if (pressure <= 6) {
-                alerts.push({ type: 'caution-pressure', message: `Bus ${busId} Caution: Elevated Pressure (${pressure} bar)` });
-            }
-
-            // Passenger Alerts
-            const passengers = passengerValues[0];
-            if (passengers > 65) {
-                alerts.push({ type: 'danger-passenger', message: `Bus ${busId} Danger: High Passenger Count (${passengers})` });
-            }
+                     if (temperatureValues[0] > 88) {
+                         alerts.push({ type: 'high-temp', message: `Bus ${busId} Danger: High Temperature Detected (${temperatureValues[0]} °C)` });
+                     } else if (temperatureValues[0] > 85) {
+                         alerts.push({ type: 'caution-temp', message: `Bus ${busId} Caution: Temperature Elevated (${temperatureValues[0]} °C)` });
+                     }
+                    if (pressureValues[0] < 5) {
+                        alerts.push({ type: 'high-pressure', message: `Bus ${busId} Danger: Low Pressure Detected (${pressureValues[0]} bar)` });
+                    } else if (pressureValues[0] <= 6) {
+                        alerts.push({ type: 'caution-pressure', message: `Bus ${busId} Caution: Pressure Elevated (${pressureValues[0]} bar)` });
+                    }
+                    if (passengerValues[0] > 65) {
+                        alerts.push({ type: 'high-passenger', message: `Bus ${busId} Danger: High Passenger Count (${passengerValues[0]})` });
+                    }
                     // Display alerts
                     alerts.forEach(alert => {
                         const alertDiv = document.createElement('div');
