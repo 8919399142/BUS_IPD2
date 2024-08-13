@@ -395,14 +395,20 @@
 
                     // Check for alerts
                     const alerts = [];
-                    if (temperatureValues[0] > 100) {
-                        alerts.push({ type: 'high-temp', message: `High Temperature Detected: ${temperatureValues[0]} °C` });
+                    if (temperatureValues[0] > 88) {
+                        alerts.push({ type: 'high-temp', message: `Bus ${busId} Danger: High Temperature Detected (${temperatureValues[0]} °C)` });
+                    } else if (temperatureValues[0] > 85) {
+                        alerts.push({ type: 'caution-temp', message: `Bus ${busId} Caution: Temperature Elevated (${temperatureValues[0]} °C)` });
                     }
-                    if (pressureValues[0] > 10) {
-                        alerts.push({ type: 'pipe-leak', message: `Potential Pipe Leak: High Pressure Detected (${pressureValues[0]} bar)` });
+                    // Pressure Alerts
+                    if (pressureValues[0] < 5) {
+                        alerts.push({ type: 'high-pressure', message: `Bus ${busId} Danger: Low Pressure Detected (${pressureValues[0]} bar)` });
+                    } else if (pressureValues[0] <= 6) {
+                        alerts.push({ type: 'caution-pressure', message: `Bus ${busId} Caution: Pressure Elevated (${pressureValues[0]} bar)` });
                     }
-                    if (passengerValues[0] > 100) {
-                        alerts.push({ type: 'high-passenger', message: `High Passenger Count Detected: ${passengerValues[0]}` });
+                    // Passenger Alerts
+                    if (passengerValues[0] > 65) {
+                        alerts.push({ type: 'high-passenger', message: `Bus ${busId} Danger: High Passenger Count (${passengerValues[0]})` });
                     }
 
 
