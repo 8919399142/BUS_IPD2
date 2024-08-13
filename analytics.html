@@ -197,8 +197,8 @@
         // Update this object with the actual Ubidots variable IDs, graph URLs, and bus details
         const BUS_VARIABLES = {
             1: {
-                driverName: 'John Doe',
-                busNumber: '101',
+                driverName: 'pradeep',
+                busNumber: 'AP24R5689',
                 firstArrival: '08:00 AM',
                 lastArrival: '06:00 PM',
                 temperature: '66b44c67a8c0544d3b0fb52f',
@@ -211,8 +211,8 @@
                 }
             },
             2: {
-                driverName: 'Jane Smith',
-                busNumber: '102',
+                driverName: 'Ganesh',
+                busNumber: 'AP45R672',
                 firstArrival: '08:15 AM',
                 lastArrival: '06:15 PM',
                 temperature: '66b4509ce61f534c00e45106',
@@ -225,8 +225,8 @@
                 }
             },
             3: {
-                driverName: 'Alice Johnson',
-                busNumber: '103',
+                driverName: 'Anil',
+                busNumber: 'AP98D123',
                 firstArrival: '08:30 AM',
                 lastArrival: '06:30 PM',
                 temperature: '66b451f7d6a6444cbd4857a0',
@@ -239,8 +239,8 @@
                 }
             },
             4: {
-                driverName: 'Bob Brown',
-                busNumber: '104',
+                driverName: 'Kumar',
+                busNumber: 'AP4Q9347',
                 firstArrival: '08:45 AM',
                 lastArrival: '06:45 PM',
                 temperature: '66b45297eed0eb4eae581f17',
@@ -253,8 +253,8 @@
                 }
             },
             5: {
-                driverName: 'Emily Davis',
-                busNumber: '105',
+                driverName: 'Gowri',
+                busNumber: 'AP2R5847',
                 firstArrival: '09:00 AM',
                 lastArrival: '07:00 PM',
                 temperature: '66b453fa08ca2b52514f2fa1',
@@ -267,8 +267,8 @@
                 }
             },
             6: {
-                driverName: 'Michael Wilson',
-                busNumber: '106',
+                driverName: 'Mahesh',
+                busNumber: 'AP89D234',
                 firstArrival: '09:15 AM',
                 lastArrival: '07:15 PM',
                 temperature: '66b455ac818b2953dcd375ea',
@@ -281,8 +281,8 @@
                 }
             },
             7: {
-                driverName: 'Sarah Miller',
-                busNumber: '107',
+                driverName: 'Sarah',
+                busNumber: 'AP09D345',
                 firstArrival: '09:30 AM',
                 lastArrival: '07:30 PM',
                 temperature: '66b44d6864ed3f514c6f4def',
@@ -295,8 +295,8 @@
                 }
             },
             8: {
-                driverName: 'David Lee',
-                busNumber: '108',
+                driverName: 'David',
+                busNumber: 'AP7G1453',
                 firstArrival: '09:45 AM',
                 lastArrival: '07:45 PM',
                 temperature: '66b457ffeed0eb508fea9788',
@@ -309,8 +309,8 @@
                 }
             },
             9: {
-                driverName: 'Laura Martinez',
-                busNumber: '109',
+                driverName: 'koushik',
+                busNumber: 'AP2FH890',
                 firstArrival: '10:00 AM',
                 lastArrival: '08:00 PM',
                 temperature: '66b491c980bd9d610613dbea',
@@ -323,8 +323,8 @@
                 }
             },
             10: {
-                driverName: 'James Anderson',
-                busNumber: '110',
+                driverName: 'James',
+                busNumber: 'AP2H4987',
                 firstArrival: '10:15 AM',
                 lastArrival: '08:15 PM',
                 temperature: '66b485bbeed0eb5807256ca0',
@@ -397,7 +397,7 @@
                     const alerts = [];
                     if (temperatureValues[0] > 88) {
                         alerts.push({ type: 'high-temp', message: `Bus ${busId} Danger: High Temperature Detected (${temperatureValues[0]} °C)` });
-                    } else if (temperatureValues[0] > 85) {
+                    } else if (temperatureValues[0] > 84) {
                         alerts.push({ type: 'caution-temp', message: `Bus ${busId} Caution: Temperature Elevated (${temperatureValues[0]} °C)` });
                     }
                     // Pressure Alerts
