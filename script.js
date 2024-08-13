@@ -2,10 +2,6 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
     event.preventDefault();
     window.location.href = 'home.html'; // Redirect to home page after login
 });
-
-
-
-
 // Home page functionality
 // Simulate fetching data from cloud
 function fetchData() {
@@ -13,43 +9,23 @@ function fetchData() {
     document.getElementById('buses-maintenance').querySelector('p').innerText = '0';
     document.getElementById('buses-operation').querySelector('p').innerText = '0';
 }
-
-
-
-
 function showSection(sectionId) {
     document.querySelectorAll('.hidden-section').forEach(section => {
         section.style.display = section.id === sectionId ? 'block' : 'none';
     });
 }
-
-
-
-
 document.getElementById('report-issue-btn').addEventListener('click', function() {
     showSection('report-issue-section');
 });
-
-
-
-
 document.getElementById('add-bus-btn').addEventListener('click', function() {
     showSection('add-bus-section');
 });
-
-
-
-
 document.getElementById('maintenance-schedule-btn').addEventListener('click', function() {
     showSection('maintenance-schedule-section');
     // Simulate fetching maintenance data
     const maintenanceList = document.getElementById('maintenance-list');
     maintenanceList.innerHTML = '<li>Bus 101 - Engine Issue</li><li>Bus 102 - Tire Replacement</li>';
 });
-
-
-
-
 document.getElementById('report-issue-form')?.addEventListener('submit', function(event) {
     event.preventDefault();
     alert('Issue reported successfully.');
