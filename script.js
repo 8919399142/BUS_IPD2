@@ -9,9 +9,9 @@ document.getElementById('login-form')?.addEventListener('submit', function(event
 // Home page functionality
 // Simulate fetching data from cloud
 function fetchData() {
-    document.getElementById('num-buses').querySelector('p').innerText = '50';
-    document.getElementById('buses-maintenance').querySelector('p').innerText = '10';
-    document.getElementById('buses-operation').querySelector('p').innerText = '40';
+    document.getElementById('num-buses').querySelector('p').innerText = '10';
+    document.getElementById('buses-maintenance').querySelector('p').innerText = '0';
+    document.getElementById('buses-operation').querySelector('p').innerText = '0';
 }
 
 
